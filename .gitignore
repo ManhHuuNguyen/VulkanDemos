@@ -1,0 +1,13 @@
+libs/
+.vs/
+.git/
+x64/
+
+*.bat
+*.spv
+*.lib
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxitems
