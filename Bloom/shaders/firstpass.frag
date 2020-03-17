@@ -21,7 +21,7 @@ layout(location = 0) out vec4 outColor;
 
 void main() {
 	vec3 result = vec3(0.0, 0.0, 0.0);
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < 4; i++) {
 		float dist = length(vec4(lights[i].positionEyeCoord, 1.0) - positionEyeCoord);
 		float attenuation = 1.0 / (lights[i].constant + lights[i].linear * dist + lights[i].quadratic * dist * dist);
 		vec3 ambient = lights[i].ambient * fragColor * attenuation;

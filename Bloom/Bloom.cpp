@@ -11,10 +11,10 @@
 
 
 std::vector<cg::PointLight> point_lights = {
-	{glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(5.0f, 5.0f, 5.0f), 1.0f, 0.09f, 0.032f},
-	{glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(5.0f, 5.0f, 5.0f), 1.0f, 0.09f, 0.032f},
-	{glm::vec3(0.0f, 4.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(5.0f, 5.0f, 5.0f), 1.0f, 0.09f, 0.032f},
-	{glm::vec3(0.0f, 6.0f, 0.0f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(5.0f, 5.0f, 5.0f), 1.0f, 0.09f, 0.032f}
+	{glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(5.0f, 5.0f, 5.0f), 15.0f, 0.19f, 0.032f},
+	{glm::vec3(0.0f, 2.0f, 0.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(5.0f, 5.0f, 5.0f), 15.0f, 0.19f, 0.032f},
+	{glm::vec3(0.0f, 4.0f, 0.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(5.0f, 5.0f, 5.0f), 15.0f, 0.19f, 0.032f},
+	{glm::vec3(0.0f, 6.0f, 0.0f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(5.0f, 5.0f, 5.0f), 15.0f, 0.19f, 0.032f}
 };
 
 struct PerObject {
@@ -51,8 +51,8 @@ struct QuadVertex {
 	alignas(8) glm::vec2 pos;
 	alignas(8) glm::vec2 texcoord;
 
-	static VkVertexInputBindingDescription GetBindingDescription() {
-		return vk::init::CreateVertexInputBindingDescription(0, sizeof(QuadVertex), VK_VERTEX_INPUT_RATE_VERTEX);
+	static std::vector<VkVertexInputBindingDescription> GetBindingDescriptions() {
+		return { vk::init::CreateVertexInputBindingDescription(0, sizeof(QuadVertex), VK_VERTEX_INPUT_RATE_VERTEX) };
 	}
 
 	static std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions() {
@@ -131,16 +131,16 @@ const std::vector<uint16_t> quad_indices = {
 };
 
 const std::vector<PerObject> boxes_data = { // 10 matrices 
-	{glm::translate(glm::vec3(0.0f, 0.0f, 0.0f)), glm::vec3(5.0f, 5.0f, 5.0f)}, //light source
-	{glm::translate(glm::vec3(0.0f, 2.0f, 0.0f)), glm::vec3(5.0f, 5.0f, 5.0f)}, //light source
-	{glm::translate(glm::vec3(0.0f, 4.0f, 0.0f)), glm::vec3(5.0f, 5.0f, 5.0f)}, // light source
-	{glm::translate(glm::vec3(0.0f, 6.0f, 0.0f)), glm::vec3(5.0f, 5.0f, 5.0f)}, // light source
+	{glm::translate(glm::vec3(0.0f, 0.0f, 0.0f)), glm::vec3(2.0f, 2.0f, 2.0f)}, //light source
+	{glm::translate(glm::vec3(0.0f, 2.0f, 0.0f)), glm::vec3(2.0f, 2.0f, 2.0f)}, //light source
+	{glm::translate(glm::vec3(0.0f, 4.0f, 0.0f)), glm::vec3(2.0f, 2.0f, 2.0f)}, // light source
+	{glm::translate(glm::vec3(0.0f, 6.0f, 0.0f)), glm::vec3(2.0f, 2.0f, 2.0f)}, // light source
 	{glm::translate(glm::vec3(6.0f, 0.0f, 0.0f)), glm::vec3(1.0f, 0.0f, 0.0f)}, //red
 	{glm::translate(glm::vec3(-6.0f, 0.0f, 0.0f)), glm::vec3(1.0f, 1.0f, 0.0f)}, //yellow
 	{glm::translate(glm::vec3(0.0, 0.0f, 5.0f)), glm::vec3(1.0f, 0.0f, 1.0f)}, //purple
 	{glm::translate(glm::vec3(-6.0f, 0.0f, -5.0f)), glm::vec3(1.0f, 0.0f, 0.0f)}, //red
 	{glm::translate(glm::vec3(2.0f, 3.0f, 8.0f)), glm::vec3(1.0f, 1.0f, 0.0f)}, // yellow
-	{glm::translate(glm::vec3(0.0f, 6.0f, 4.0f)), glm::vec3(0.0f, 1.0f, 1.0f)} // cyan, not showing up
+	{glm::translate(glm::vec3(0.0f, 6.0f, 4.0f)), glm::vec3(0.0f, 1.0f, 1.0f)} // cyan
 };
 
 struct UBOData {
@@ -233,14 +233,14 @@ public:
 
 	void CleanupPermanentResources() override {
 		vkDestroySampler(this->logical_device, this->sampler, nullptr);
-		DestroyDescriptorSetLayouts();
+		CleanupDescriptorSetLayouts();
 		CleanupVertexAndIndexBuffers();
 		CleanupUboDataArrays();
 	};
 
 	void CreateNonPermanentResources() override {
 		CreateAttachments();
-		CreateRenderpasses();
+		CreateRenderpasses();//maybe dont need to be in non-permanent cause it doesnt have anything to do with resizing or even attachment
 		CreateFramebuffers();
 		CreatePipelines();
 		CreateUniformBuffers();
@@ -516,7 +516,7 @@ public:
 		vk::init::CreateDescriptorSetLayout(this->logical_device, draw_layout_bindings, &this->draw_descriptor_set_layout);
 	}
 
-	void DestroyDescriptorSetLayouts() {
+	void CleanupDescriptorSetLayouts() {
 		vkDestroyDescriptorSetLayout(this->logical_device, this->draw_descriptor_set_layout, nullptr);
 		vkDestroyDescriptorSetLayout(this->logical_device, this->blur_descriptor_set_layout, nullptr);
 		vkDestroyDescriptorSetLayout(this->logical_device, this->firstpass_descriptor_set_layout, nullptr);
@@ -643,7 +643,7 @@ public:
 
 		VkPipelineShaderStageCreateInfo shader_stages[] = { vert_shader_create_info, frag_shader_create_info };
 
-		std::vector<VkVertexInputBindingDescription> input_binding_descs = { QuadVertex::GetBindingDescription() };
+		std::vector<VkVertexInputBindingDescription> input_binding_descs = QuadVertex::GetBindingDescriptions();
 		std::vector<VkVertexInputAttributeDescription> input_attrib_descs = QuadVertex::GetAttributeDescriptions();
 		VkPipelineVertexInputStateCreateInfo vertex_input_info = vk::CreateVertexInputStateCreateInfo(input_binding_descs, input_attrib_descs);
 		VkPipelineInputAssemblyStateCreateInfo assembly_state_info = vk::CreateInputAssemblyStateCreateInfo(false, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
@@ -729,7 +729,7 @@ public:
 
 		VkPipelineShaderStageCreateInfo shader_stages[] = { vert_shader_create_info, frag_shader_create_info };
 
-		std::vector<VkVertexInputBindingDescription> input_binding_descs = { QuadVertex::GetBindingDescription() };
+		std::vector<VkVertexInputBindingDescription> input_binding_descs = QuadVertex::GetBindingDescriptions();
 		std::vector<VkVertexInputAttributeDescription> input_attrib_descs = QuadVertex::GetAttributeDescriptions();
 		VkPipelineVertexInputStateCreateInfo vertex_input_info = vk::CreateVertexInputStateCreateInfo(input_binding_descs, input_attrib_descs);
 		VkPipelineInputAssemblyStateCreateInfo assembly_state_info = vk::CreateInputAssemblyStateCreateInfo(false, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
